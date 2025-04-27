@@ -1,54 +1,15 @@
-# Complete Code: Including firebase_config and Streamlit App in one file
-
 import streamlit as st
 import pandas as pd
 import numpy as np
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import PolynomialFeatures
 from sklearn.linear_model import LinearRegression
-import firebase_admin
-from firebase_admin import credentials, db
 
-# Replace with the correct path to your Firebase service account JSON file.
-SERVICE_ACCOUNT_PATH = r"E:\all_csv\predictive-plant-watering-firebase-adminsdk-fbsvc-c2ba0ff7d9.json"
-
-# Your Firebase Realtime Database URL
-DATABASE_URL = "https://predictive-plant-watering-default-rtdb.asia-southeast1.firebasedatabase.app/"
-
-# Initialize the Firebase Admin SDK inside a try/except block to catch errors.
-try:
-    # Check if Firebase has already been initialized
-    if not firebase_admin._apps:
-        cred = credentials.Certificate(SERVICE_ACCOUNT_PATH)
-        firebase_admin.initialize_app(cred, {
-            'databaseURL': DATABASE_URL
-        })
-        print("✅ Firebase Admin SDK initialized successfully.")
-    else:
-        print("✅ Firebase Admin SDK already initialized.")
-except Exception as e:
-    print("❌ Error initializing Firebase Admin SDK:", e)
-    raise
-
-def get_sensor_data():
-    """
-    Fetch sensor data from the root of your Firebase Realtime Database.
-    Adjust the reference path if your data is stored under a different node.
-    
-    Returns:
-        A dictionary containing your sensor data.
-    """
-    try:
-        ref = db.reference("/")  # Use "/" if your data is stored at the root.
-        data = ref.get()
-        return data
-    except Exception as e:
-        print("❌ Error fetching sensor data:", e)
-        return None
-
+# Import the Firebase data retrieval function
+from firebase_config import get_sensor_data
 
 # Load dataset from GitHub
-dataset_url = "https://raw.githubusercontent.com/ChaitanyaNaphad/predictive-plant-watering__final/refs/heads/main/watering_schedule_combinations.csv"
+dataset_url = "https://raw.githubusercontent.com/ChaitanyaNaphad/predictiveplantewatering/refs/heads/main/watering_schedule_combinations.csv"
 df = pd.read_csv(dataset_url)
 
 # Streamlit UI
