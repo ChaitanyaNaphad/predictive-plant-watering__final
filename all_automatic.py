@@ -1,3 +1,5 @@
+# Complete Code: Including firebase_config and Streamlit App in one file
+
 import streamlit as st
 import pandas as pd
 import numpy as np
@@ -7,28 +9,37 @@ from sklearn.linear_model import LinearRegression
 import firebase_admin
 from firebase_admin import credentials, db
 
-# Firebase Configuration
-SERVICE_ACCOUNT_PATH = r"E:\all_csv\predictive-plant-watering-firebase-adminsdk-fbsvc-c2ba0ff7d9.json"  # Path to your Firebase service account file
-DATABASE_URL = "https://github.com/ChaitanyaNaphad/predictive-plant-watering__final/blob/main/watering_schedule_combinations.csv"  # Your Firebase Realtime Database URL
+# Replace with the correct path to your Firebase service account JSON file.
+SERVICE_ACCOUNT_PATH = r"E:\all_csv\predictive-plant-watering-firebase-adminsdk-fbsvc-c2ba0ff7d9.json"
 
-# Initialize Firebase Admin SDK (Check if already initialized)
-if not firebase_admin._apps:
-    try:
+# Your Firebase Realtime Database URL
+DATABASE_URL = "https://predictive-plant-watering-default-rtdb.asia-southeast1.firebasedatabase.app/"
+
+# Initialize the Firebase Admin SDK inside a try/except block to catch errors.
+try:
+    # Check if Firebase has already been initialized
+    if not firebase_admin._apps:
         cred = credentials.Certificate(SERVICE_ACCOUNT_PATH)
         firebase_admin.initialize_app(cred, {
             'databaseURL': DATABASE_URL
         })
         print("✅ Firebase Admin SDK initialized successfully.")
-    except Exception as e:
-        print("❌ Error initializing Firebase Admin SDK:", e)
-        raise
-else:
-    print("⚠️ Firebase Admin SDK already initialized.")
+    else:
+        print("✅ Firebase Admin SDK already initialized.")
+except Exception as e:
+    print("❌ Error initializing Firebase Admin SDK:", e)
+    raise
 
-# Fetch sensor data from Firebase
 def get_sensor_data():
+    """
+    Fetch sensor data from the root of your Firebase Realtime Database.
+    Adjust the reference path if your data is stored under a different node.
+    
+    Returns:
+        A dictionary containing your sensor data.
+    """
     try:
-        ref = db.reference("/")  # Use "/" if your data is stored at the root
+        ref = db.reference("/")  # Use "/" if your data is stored at the root.
         data = ref.get()
         return data
     except Exception as e:
