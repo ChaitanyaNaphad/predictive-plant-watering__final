@@ -48,7 +48,7 @@ def get_sensor_data():
 
 
 # Load dataset from GitHub
-dataset_url = "https://raw.githubusercontent.com/ChaitanyaNaphad/predictiveplantewatering/refs/heads/main/watering_schedule_combinations.csv"
+dataset_url = "https://raw.githubusercontent.com/ChaitanyaNaphad/predictive-plant-watering__final/refs/heads/main/watering_schedule_combinations.csv"
 df = pd.read_csv(dataset_url)
 
 # Streamlit UI
