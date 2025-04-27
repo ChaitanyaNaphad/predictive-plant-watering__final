@@ -1,6 +1,6 @@
-
 numpy==2.2.1
 pandas==2.2.3
 python-dateutil==2.9.0.post0
 scikit-learn==1.6.1
 streamlit==1.42.1
+firebase-admin==6.0.0
