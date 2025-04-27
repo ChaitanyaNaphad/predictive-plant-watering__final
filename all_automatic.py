@@ -9,7 +9,7 @@ from firebase_admin import credentials, db
 
 # Firebase Configuration
 SERVICE_ACCOUNT_PATH = r"E:\all_csv\predictive-plant-watering-firebase-adminsdk-fbsvc-c2ba0ff7d9.json"  # Path to your Firebase service account file
-DATABASE_URL = "https://predictive-plant-watering-default-rtdb.asia-southeast1.firebasedatabase.app/"  # Your Firebase Realtime Database URL
+DATABASE_URL = "https://github.com/ChaitanyaNaphad/predictive-plant-watering__final/blob/main/watering_schedule_combinations.csv"  # Your Firebase Realtime Database URL
 
 # Initialize Firebase Admin SDK (Check if already initialized)
 if not firebase_admin._apps:
